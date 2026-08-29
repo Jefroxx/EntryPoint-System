@@ -15,6 +15,14 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Laravel specific storage & cache
+/storage/*.key
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+
 # IDE / System files
 .vscode/
 .idea/
