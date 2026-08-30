@@ -8,17 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('book_categories', function (Blueprint $table) {
+        Schema::create('penalty_rules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parent_category_id')->nullable()
-                ->constrained('book_categories')->nullOnDelete();
-            $table->string('name');
+            $table->foreignId('penalty_type_id')->constrained('penalty_types')->cascadeOnDelete();
+            $table->decimal('rate', 10, 2);
+            $table->unsignedInteger('grace_period_days')->default(0);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('book_categories');
+        Schema::dropIfExists('penalty_rules');
     }
 };

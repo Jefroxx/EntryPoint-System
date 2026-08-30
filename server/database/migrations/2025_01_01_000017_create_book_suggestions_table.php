@@ -10,15 +10,15 @@ return new class extends Migration
     {
         Schema::create('book_suggestions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('students', 'user_id')->cascadeOnDelete();
-            $table->foreignId('review_by_librarian_id')->nullable()
-                ->constrained('librarians', 'user_id')->nullOnDelete();
+            $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
+            $table->foreignId('reviewed_by_librarian_id')->nullable()
+                ->constrained('librarians')->nullOnDelete();
             $table->string('title');
             $table->string('author')->nullable();
             $table->text('reason')->nullable();
-            $table->string('status')->default('submitted');
+            $table->string('status')->default('Pending'); // Pending, Approved, Rejected
             $table->string('progress_step')->nullable();
-            $table->timestamp('submitted_at')->nullable();
+            $table->timestamp('submitted_at')->useCurrent();
             $table->timestamps();
         });
     }

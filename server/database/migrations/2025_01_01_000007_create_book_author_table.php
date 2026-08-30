@@ -11,9 +11,8 @@ return new class extends Migration
         Schema::create('book_author', function (Blueprint $table) {
             $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
             $table->foreignId('author_id')->constrained('authors')->cascadeOnDelete();
-            $table->string('role')->nullable();
+            $table->string('role')->nullable(); // e.g. Primary Author, Co-Author, Editor
             $table->primary(['book_id', 'author_id']);
-            $table->timestamps();
         });
     }
 

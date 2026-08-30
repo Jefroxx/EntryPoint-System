@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('penalty_types', function (Blueprint $table) {
             $table->id();
-            $table->string('category');
+            $table->string('category'); // e.g. Overdue, Damaged, Lost
             $table->timestamps();
         });
     }

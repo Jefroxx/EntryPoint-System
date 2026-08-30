@@ -1,0 +1,27 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('student_badge', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
+            $table->foreignId('badge_id')->constrained('badges')->cascadeOnDelete();
+            $table->string('trigger_event')->nullable();
+            $table->timestamp('earned_at')->useCurrent();
+            $table->timestamps();
+
+            $table->unique(['student_id', 'badge_id']); // a student earns a given badge once
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('student_badge');
+    }
+};
