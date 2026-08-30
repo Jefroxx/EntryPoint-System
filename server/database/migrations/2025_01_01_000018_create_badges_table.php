@@ -8,18 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('resources', function (Blueprint $table) {
+        Schema::create('badges', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('institution_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('type_id')->constrained('library_resource_types')->restrictOnDelete();
             $table->string('name');
-            $table->string('status')->default('available');
+            $table->json('criteria_json')->nullable();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('resources');
+        Schema::dropIfExists('badges');
     }
 };

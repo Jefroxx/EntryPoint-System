@@ -8,17 +8,18 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('wishlists', function (Blueprint $table) {
+        Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('students', 'user_id')->cascadeOnDelete();
+            $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
             $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
-            $table->timestamp('added_at')->nullable();
+            $table->enum('status', ['Waiting', 'Accepted', 'Rejected'])->default('Waiting');
+            $table->timestamp('reserved_at')->useCurrent();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('wishlists');
+        Schema::dropIfExists('reservations');
     }
 };

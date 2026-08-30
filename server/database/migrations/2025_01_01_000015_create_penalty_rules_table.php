@@ -8,16 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('institutions', function (Blueprint $table) {
+        Schema::create('penalty_rules', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('address')->nullable();
+            $table->foreignId('penalty_type_id')->constrained('penalty_types')->cascadeOnDelete();
+            $table->decimal('rate', 10, 2);
+            $table->unsignedInteger('grace_period_days')->default(0);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('institutions');
+        Schema::dropIfExists('penalty_rules');
     }
 };

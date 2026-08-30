@@ -8,16 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('attendance_logs', function (Blueprint $table) {
+        Schema::create('resources', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('students', 'user_id')->cascadeOnDelete();
-            $table->timestamp('entry_time');
+            $table->string('resource_type'); // e.g. Computer Station, Study Space
+            $table->string('name');
+            $table->string('status')->default('Available'); // Available, In Use, Disabled
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('attendance_logs');
+        Schema::dropIfExists('resources');
     }
 };

@@ -10,10 +10,11 @@ return new class extends Migration
     {
         Schema::create('point_redemptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('students', 'user_id')->cascadeOnDelete();
+            $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
             $table->foreignId('item_id')->constrained('market_items')->restrictOnDelete();
             $table->unsignedInteger('points_spent');
-            $table->timestamp('redeemed_at')->nullable();
+            $table->string('fulfillment_status')->default('Pending'); // Pending, Fulfilled, Cancelled
+            $table->timestamp('redeemed_at')->useCurrent();
             $table->timestamps();
         });
     }

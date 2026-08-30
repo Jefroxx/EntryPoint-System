@@ -12,10 +12,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('loan_id')->constrained('loans')->cascadeOnDelete();
             $table->foreignId('penalty_type_id')->constrained('penalty_types')->restrictOnDelete();
-            $table->decimal('amount', 8, 2);
-            $table->timestamp('computed_at')->nullable();
+            $table->decimal('amount', 10, 2);
+            $table->timestamp('computed_at')->useCurrent();
             $table->timestamp('settled_at')->nullable();
-            $table->string('payment_status')->default('unpaid');
+            $table->string('payment_status')->default('Unpaid'); // Unpaid, Paid, Waived
             $table->timestamps();
         });
     }

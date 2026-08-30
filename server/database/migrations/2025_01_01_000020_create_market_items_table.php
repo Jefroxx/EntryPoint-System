@@ -8,16 +8,18 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('achievements', function (Blueprint $table) {
+        Schema::create('market_items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->json('criteria_json')->nullable();
+            $table->string('type')->nullable(); // e.g. Printing Credit, Extra Computer Hours
+            $table->unsignedInteger('point_cost');
+            $table->unsignedInteger('stock')->default(0);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('achievements');
+        Schema::dropIfExists('market_items');
     }
 };

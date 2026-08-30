@@ -10,11 +10,12 @@ return new class extends Migration
     {
         Schema::create('self_return_reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('loan_id')->constrained('loans')->cascadeOnDelete();
+            // 1:1 (optional) with loans — a loan has at most one self-return report
+            $table->foreignId('loan_id')->unique()->constrained('loans')->cascadeOnDelete();
             $table->foreignId('verified_by_librarian_id')->nullable()
-                ->constrained('librarians', 'user_id')->nullOnDelete();
-            $table->timestamp('reported_at')->nullable();
-            $table->string('verification_status')->default('pending');
+                ->constrained('librarians')->nullOnDelete();
+            $table->timestamp('reported_at')->useCurrent();
+            $table->string('verification_status')->default('Pending'); // Pending, Verified, Disputed
             $table->timestamps();
         });
     }

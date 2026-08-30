@@ -8,15 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('library_resource_types', function (Blueprint $table) {
+        Schema::create('attendance_logs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
+            $table->timestamp('entry_time');
+            $table->timestamp('exit_time')->nullable();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('library_resource_types');
+        Schema::dropIfExists('attendance_logs');
     }
 };
