@@ -16,6 +16,11 @@ return new class extends Migration
             $table->string('academic_program', 50)->nullable(); // e.g. BSIT, BSTM, BSHM
             $table->unsignedInteger('knowledge_score')->default(0);
             $table->unsignedInteger('visit_streak')->default(0);
+            // Gates account access until a librarian approves the registration
+            $table->enum('registration_status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->foreignId('reviewed_by_librarian_id')->nullable()
+                ->constrained('librarians')->nullOnDelete();
+            $table->timestamp('reviewed_at')->nullable();
             $table->timestamps();
         });
     }
