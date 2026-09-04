@@ -9,15 +9,17 @@ class PenaltyType extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category'];
+    protected $primaryKey = 'penaltyTypeID';
+
+    protected $fillable = ['uuid', 'category'];
 
     public function rules()
     {
-        return $this->hasMany(PenaltyRule::class, 'penalty_type_id');
+        return $this->hasMany(PenaltyRule::class, 'penaltyTypeID', 'penaltyTypeID');
     }
 
     public function penalties()
     {
-        return $this->hasMany(Penalty::class, 'penalty_type_id');
+        return $this->hasMany(Penalty::class, 'penaltyTypeID', 'penaltyTypeID');
     }
 }

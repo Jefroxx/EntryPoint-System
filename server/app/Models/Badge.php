@@ -9,13 +9,15 @@ class Badge extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'criteria_json'];
+    protected $primaryKey = 'badgeID';
 
-    protected $casts = ['criteria_json' => 'array'];
+    protected $fillable = ['uuid', 'name', 'criteriaJSON'];
+
+    protected $casts = ['criteriaJSON' => 'array'];
 
     public function students()
     {
-        return $this->belongsToMany(Student::class, 'student_badge', 'badge_id', 'student_id')
-            ->withPivot(['trigger_event', 'earned_at']);
+        return $this->belongsToMany(Student::class, 'student_badge', 'badgeID', 'studentID')
+            ->withPivot(['triggerEvent', 'earnedAt']);
     }
 }

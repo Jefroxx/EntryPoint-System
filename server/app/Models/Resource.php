@@ -10,11 +10,12 @@ class Resource extends Model
     use HasFactory;
 
     protected $table = 'resources';
+    protected $primaryKey = 'resID';
 
-    protected $fillable = ['resource_type', 'name', 'status'];
+    protected $fillable = ['uuid', 'resourceType', 'name', 'status'];
 
     public function usageLogs()
     {
-        return $this->hasMany(ResourceUsageLog::class, 'res_id');
+        return $this->hasMany(ResourceUsageLog::class, 'resID', 'resID');
     }
 }

@@ -9,27 +9,29 @@ class ResourceUsageLog extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'usageID';
+
     protected $fillable = [
-        'res_id', 'student_id', 'staff_librarian_id', 'start_time', 'end_time',
+        'uuid', 'resID', 'studentID', 'staffLibrarianID', 'startTime', 'endTime',
     ];
 
     protected $casts = [
-        'start_time' => 'datetime',
-        'end_time' => 'datetime',
+        'startTime' => 'datetime',
+        'endTime' => 'datetime',
     ];
 
     public function resource()
     {
-        return $this->belongsTo(Resource::class, 'res_id');
+        return $this->belongsTo(Resource::class, 'resID', 'resID');
     }
 
     public function student()
     {
-        return $this->belongsTo(Student::class, 'student_id');
+        return $this->belongsTo(Student::class, 'studentID', 'studentID');
     }
 
     public function staffLibrarian()
     {
-        return $this->belongsTo(Librarian::class, 'staff_librarian_id');
+        return $this->belongsTo(Librarian::class, 'staffLibrarianID', 'librarianID');
     }
 }

@@ -9,17 +9,19 @@ class Wishlist extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['student_id', 'book_id', 'added_at'];
+    protected $primaryKey = 'wishlistID';
 
-    protected $casts = ['added_at' => 'datetime'];
+    protected $fillable = ['uuid', 'studentID', 'bookID', 'addedAt'];
+
+    protected $casts = ['addedAt' => 'datetime'];
 
     public function student()
     {
-        return $this->belongsTo(Student::class, 'student_id');
+        return $this->belongsTo(Student::class, 'studentID', 'studentID');
     }
 
     public function book()
     {
-        return $this->belongsTo(Book::class, 'book_id');
+        return $this->belongsTo(Book::class, 'bookID', 'bookID');
     }
 }

@@ -9,11 +9,13 @@ class MarketItem extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'type', 'point_cost', 'stock'];
+    protected $primaryKey = 'itemID';
+
+    protected $fillable = ['uuid', 'name', 'type', 'pointCost', 'stock'];
 
     public function redemptions()
     {
-        return $this->hasMany(PointRedemption::class, 'item_id');
+        return $this->hasMany(PointRedemption::class, 'itemID', 'itemID');
     }
 
     public function inStock(): bool
