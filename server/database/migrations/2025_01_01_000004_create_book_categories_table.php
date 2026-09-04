@@ -9,7 +9,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('book_categories', function (Blueprint $table) {
-            $table->id();
+            $table->id('categoryID'); // Updated
+            $table->uuid('uuid')->unique();
             $table->string('name');
             $table->timestamps();
         });

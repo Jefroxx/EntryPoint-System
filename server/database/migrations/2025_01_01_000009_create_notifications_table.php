@@ -9,13 +9,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notifications', function (Blueprint $table) {
-            $table->id();
-            // Single FK to users — works for both students and librarians
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->id('notificationID'); // Updated
+            $table->uuid('uuid')->unique();
+            $table->foreignId('userID')->constrained('users', 'userID')->cascadeOnDelete(); // Updated
             $table->string('message');
-            $table->string('type')->nullable(); // e.g. login_alert, reservation_status, overdue
-            $table->timestamp('sent_at')->useCurrent();
-            $table->boolean('is_read')->default(false);
+            $table->string('type')->nullable();
+            $table->timestamp('sentAt')->useCurrent();
+            $table->boolean('isRead')->default(false);
             $table->timestamps();
         });
     }

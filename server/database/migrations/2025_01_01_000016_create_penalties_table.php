@@ -9,13 +9,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('penalties', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('loan_id')->constrained('loans')->cascadeOnDelete();
-            $table->foreignId('penalty_type_id')->constrained('penalty_types')->restrictOnDelete();
+            $table->id('penaltyID'); // Updated
+            $table->uuid('uuid')->unique();
+            $table->foreignId('loanID')->constrained('loans', 'loanID')->cascadeOnDelete(); // Updated
+            $table->foreignId('penaltyTypeID')->constrained('penalty_types', 'penaltyTypeID')->restrictOnDelete(); // Updated
             $table->decimal('amount', 10, 2);
-            $table->timestamp('computed_at')->useCurrent();
-            $table->timestamp('settled_at')->nullable();
-            $table->string('payment_status')->default('Unpaid'); // Unpaid, Paid, Waived
+            $table->timestamp('computedAt')->useCurrent();
+            $table->timestamp('settledAt')->nullable();
+            $table->string('paymentStatus')->default('Unpaid');
             $table->timestamps();
         });
     }

@@ -9,16 +9,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('books', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('category_id')->constrained('book_categories')->cascadeOnUpdate()->restrictOnDelete();
+            $table->id('bookID'); // Updated
+            $table->uuid('uuid')->unique();
+            $table->foreignId('categoryID')->constrained('book_categories', 'categoryID')->cascadeOnUpdate()->restrictOnDelete(); // Updated
             $table->string('title');
-            $table->string('call_number');
-            $table->string('accession_number')->unique();
-            $table->string('cover_image_url')->nullable();
-            $table->string('shelf_location')->nullable();
-            $table->unsignedInteger('total_copies')->default(1);
-            // Derived/cached value — kept in sync via loan activity (app logic or trigger)
-            $table->unsignedInteger('available_copies')->default(1);
+            $table->string('callNumber');
+            $table->string('accessionNumber')->unique();
+            $table->string('coverImageURL')->nullable();
+            $table->string('shelfLocation')->nullable();
+            $table->unsignedInteger('totalCopies')->default(1);
+            $table->unsignedInteger('availableCopies')->default(1);
             $table->timestamps();
         });
     }

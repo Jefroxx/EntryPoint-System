@@ -9,13 +9,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('wishlists', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
-            $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
-            $table->timestamp('added_at')->useCurrent();
+            $table->id('wishlistID'); // Updated
+            $table->uuid('uuid')->unique();
+            $table->foreignId('studentID')->constrained('students', 'studentID')->cascadeOnDelete(); // Updated
+            $table->foreignId('bookID')->constrained('books', 'bookID')->cascadeOnDelete(); // Updated
+            $table->timestamp('addedAt')->useCurrent();
             $table->timestamps();
 
-            $table->unique(['student_id', 'book_id']); // a student can't wishlist the same book twice
+            $table->unique(['studentID', 'bookID']);
         });
     }
 

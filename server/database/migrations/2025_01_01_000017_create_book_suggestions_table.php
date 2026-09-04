@@ -9,16 +9,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('book_suggestions', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
-            $table->foreignId('reviewed_by_librarian_id')->nullable()
-                ->constrained('librarians')->nullOnDelete();
+            $table->id('suggestionID'); // Updated
+            $table->uuid('uuid')->unique();
+            $table->foreignId('studentID')->constrained('students', 'studentID')->cascadeOnDelete(); // Updated
+            $table->foreignId('reviewedByLibrarianID')->nullable()->constrained('librarians', 'librarianID')->nullOnDelete(); // Updated
             $table->string('title');
             $table->string('author')->nullable();
             $table->text('reason')->nullable();
-            $table->string('status')->default('Pending'); // Pending, Approved, Rejected
-            $table->string('progress_step')->nullable();
-            $table->timestamp('submitted_at')->useCurrent();
+            $table->string('status')->default('Pending');
+            $table->string('progressStep')->nullable();
+            $table->timestamp('submittedAt')->useCurrent();
             $table->timestamps();
         });
     }

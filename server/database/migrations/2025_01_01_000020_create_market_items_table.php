@@ -9,10 +9,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('market_items', function (Blueprint $table) {
-            $table->id();
+            $table->id('itemID'); // Updated
+            $table->uuid('uuid')->unique();
             $table->string('name');
-            $table->string('type')->nullable(); // e.g. Printing Credit, Extra Computer Hours
-            $table->unsignedInteger('point_cost');
+            $table->string('type')->nullable();
+            $table->unsignedInteger('pointCost');
             $table->unsignedInteger('stock')->default(0);
             $table->timestamps();
         });

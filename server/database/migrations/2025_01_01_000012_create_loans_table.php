@@ -9,14 +9,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('loans', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
-            $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
-            $table->string('loan_type')->default('standard');
-            $table->timestamp('checkout_date')->useCurrent();
-            $table->timestamp('due_date');
-            $table->timestamp('return_date')->nullable();
-            $table->string('status')->default('Active'); // e.g. Active, Returned, Overdue
+            $table->id('loanID'); // Updated
+            $table->uuid('uuid')->unique();
+            $table->foreignId('studentID')->constrained('students', 'studentID')->cascadeOnDelete(); // Updated
+            $table->foreignId('bookID')->constrained('books', 'bookID')->cascadeOnDelete(); // Updated
+            $table->string('loanType')->default('standard');
+            $table->timestamp('checkoutDate')->useCurrent();
+            $table->timestamp('dueDate');
+            $table->timestamp('returnDate')->nullable();
+            $table->string('status')->default('Active');
             $table->timestamps();
         });
     }

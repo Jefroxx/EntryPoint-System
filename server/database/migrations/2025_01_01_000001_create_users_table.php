@@ -9,16 +9,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('first_name');
-            $table->string('middle_initial', 5)->nullable();
-            $table->string('last_name');
+            $table->id('userID'); // Updated
+            $table->uuid('uuid')->unique();
+            $table->string('firstName');
+            $table->string('middleInitial', 5)->nullable();
+            $table->string('lastName');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('phone_number')->nullable();
-            $table->date('birth_date')->nullable();
+            $table->string('phoneNumber')->nullable();
+            $table->date('birthDate')->nullable();
             $table->string('address')->nullable();
-            $table->enum('user_type', ['student', 'librarian']);
+            $table->enum('userType', ['student', 'librarian']);
             $table->timestamps();
         });
     }

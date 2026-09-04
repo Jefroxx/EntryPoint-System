@@ -9,14 +9,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('student_badge', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
-            $table->foreignId('badge_id')->constrained('badges')->cascadeOnDelete();
-            $table->string('trigger_event')->nullable();
-            $table->timestamp('earned_at')->useCurrent();
+            $table->id('studentBadgeID'); // Updated
+            $table->uuid('uuid')->unique();
+            $table->foreignId('studentID')->constrained('students', 'studentID')->cascadeOnDelete(); // Updated
+            $table->foreignId('badgeID')->constrained('badges', 'badgeID')->cascadeOnDelete(); // Updated
+            $table->string('triggerEvent')->nullable();
+            $table->timestamp('earnedAt')->useCurrent();
             $table->timestamps();
 
-            $table->unique(['student_id', 'badge_id']); // a student earns a given badge once
+            $table->unique(['studentID', 'badgeID']);
         });
     }
 
