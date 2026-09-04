@@ -9,19 +9,21 @@ class PointRedemption extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'redemptionID';
+
     protected $fillable = [
-        'student_id', 'item_id', 'points_spent', 'fulfillment_status', 'redeemed_at',
+        'uuid', 'studentID', 'itemID', 'pointsSpent', 'fulfillmentStatus', 'redeemedAt',
     ];
 
-    protected $casts = ['redeemed_at' => 'datetime'];
+    protected $casts = ['redeemedAt' => 'datetime'];
 
     public function student()
     {
-        return $this->belongsTo(Student::class, 'student_id');
+        return $this->belongsTo(Student::class, 'studentID', 'studentID');
     }
 
     public function item()
     {
-        return $this->belongsTo(MarketItem::class, 'item_id');
+        return $this->belongsTo(MarketItem::class, 'itemID', 'itemID');
     }
 }

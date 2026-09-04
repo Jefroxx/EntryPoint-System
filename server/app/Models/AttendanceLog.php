@@ -9,15 +9,17 @@ class AttendanceLog extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['student_id', 'entry_time', 'exit_time'];
+    protected $primaryKey = 'logID';
+
+    protected $fillable = ['uuid', 'studentID', 'entryTime', 'exitTime'];
 
     protected $casts = [
-        'entry_time' => 'datetime',
-        'exit_time' => 'datetime',
+        'entryTime' => 'datetime',
+        'exitTime' => 'datetime',
     ];
 
     public function student()
     {
-        return $this->belongsTo(Student::class, 'student_id');
+        return $this->belongsTo(Student::class, 'studentID', 'studentID');
     }
 }

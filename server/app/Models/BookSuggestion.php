@@ -9,20 +9,22 @@ class BookSuggestion extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'suggestionID';
+
     protected $fillable = [
-        'student_id', 'reviewed_by_librarian_id', 'title', 'author',
-        'reason', 'status', 'progress_step', 'submitted_at',
+        'uuid', 'studentID', 'reviewedByLibrarianID', 'title', 'author',
+        'reason', 'status', 'progressStep', 'submittedAt',
     ];
 
-    protected $casts = ['submitted_at' => 'datetime'];
+    protected $casts = ['submittedAt' => 'datetime'];
 
     public function student()
     {
-        return $this->belongsTo(Student::class, 'student_id');
+        return $this->belongsTo(Student::class, 'studentID', 'studentID');
     }
 
     public function reviewedBy()
     {
-        return $this->belongsTo(Librarian::class, 'reviewed_by_librarian_id');
+        return $this->belongsTo(Librarian::class, 'reviewedByLibrarianID', 'librarianID');
     }
 }

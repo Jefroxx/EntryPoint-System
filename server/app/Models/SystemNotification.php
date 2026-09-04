@@ -12,16 +12,17 @@ class SystemNotification extends Model
     use HasFactory;
 
     protected $table = 'notifications';
+    protected $primaryKey = 'notificationID';
 
-    protected $fillable = ['user_id', 'message', 'type', 'sent_at', 'is_read'];
+    protected $fillable = ['uuid', 'userID', 'message', 'type', 'sentAt', 'isRead'];
 
     protected $casts = [
-        'sent_at' => 'datetime',
-        'is_read' => 'boolean',
+        'sentAt' => 'datetime',
+        'isRead' => 'boolean',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'userID', 'userID');
     }
 }

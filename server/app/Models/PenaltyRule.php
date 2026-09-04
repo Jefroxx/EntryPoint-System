@@ -9,12 +9,14 @@ class PenaltyRule extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['penalty_type_id', 'rate', 'grace_period_days'];
+    protected $primaryKey = 'ruleID';
+
+    protected $fillable = ['uuid', 'penaltyTypeID', 'rate', 'gracePeriodDays'];
 
     protected $casts = ['rate' => 'decimal:2'];
 
     public function penaltyType()
     {
-        return $this->belongsTo(PenaltyType::class, 'penalty_type_id');
+        return $this->belongsTo(PenaltyType::class, 'penaltyTypeID', 'penaltyTypeID');
     }
 }

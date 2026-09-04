@@ -9,19 +9,21 @@ class SelfReturnReport extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'reportID';
+
     protected $fillable = [
-        'loan_id', 'verified_by_librarian_id', 'reported_at', 'verification_status',
+        'uuid', 'loanID', 'verifiedByLibrarianID', 'reportedAt', 'verificationStatus',
     ];
 
-    protected $casts = ['reported_at' => 'datetime'];
+    protected $casts = ['reportedAt' => 'datetime'];
 
     public function loan()
     {
-        return $this->belongsTo(Loan::class, 'loan_id');
+        return $this->belongsTo(Loan::class, 'loanID', 'loanID');
     }
 
     public function verifiedBy()
     {
-        return $this->belongsTo(Librarian::class, 'verified_by_librarian_id');
+        return $this->belongsTo(Librarian::class, 'verifiedByLibrarianID', 'librarianID');
     }
 }

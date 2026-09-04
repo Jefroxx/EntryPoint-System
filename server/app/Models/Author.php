@@ -9,11 +9,13 @@ class Author extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $primaryKey = 'authorID';
+
+    protected $fillable = ['uuid', 'name'];
 
     public function books()
     {
-        return $this->belongsToMany(Book::class, 'book_author', 'author_id', 'book_id')
+        return $this->belongsToMany(Book::class, 'book_author', 'authorID', 'bookID')
             ->withPivot('role');
     }
 }
