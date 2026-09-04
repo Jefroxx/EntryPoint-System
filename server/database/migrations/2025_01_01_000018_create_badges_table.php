@@ -9,9 +9,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('badges', function (Blueprint $table) {
-            $table->id();
+            $table->id('badgeID'); // Updated
+            $table->uuid('uuid')->unique();
             $table->string('name');
-            $table->json('criteria_json')->nullable();
+            $table->json('criteriaJSON')->nullable();
             $table->timestamps();
         });
     }

@@ -9,10 +9,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('attendance_logs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
-            $table->timestamp('entry_time');
-            $table->timestamp('exit_time')->nullable();
+            $table->id('logID'); // Updated
+            $table->uuid('uuid')->unique();
+            $table->foreignId('studentID')->constrained('students', 'studentID')->cascadeOnDelete(); // Updated
+            $table->timestamp('entryTime');
+            $table->timestamp('exitTime')->nullable();
             $table->timestamps();
         });
     }

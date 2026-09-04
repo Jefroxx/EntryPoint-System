@@ -9,8 +9,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('librarians', function (Blueprint $table) {
-            // 1:1 with users — librarian's id IS the user's id (class-table inheritance)
-            $table->foreignId('id')->primary()->constrained('users')->cascadeOnDelete();
+            $table->foreignId('librarianID')->primary()->constrained('users', 'userID')->cascadeOnDelete(); // Updated
+            $table->uuid('uuid')->unique();
             $table->string('role')->default('librarian');
             $table->timestamps();
         });

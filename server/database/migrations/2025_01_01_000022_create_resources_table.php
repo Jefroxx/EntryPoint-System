@@ -9,10 +9,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('resources', function (Blueprint $table) {
-            $table->id();
-            $table->string('resource_type'); // e.g. Computer Station, Study Space
+            $table->id('resID'); // Updated
+            $table->uuid('uuid')->unique();
+            $table->string('resourceType');
             $table->string('name');
-            $table->string('status')->default('Available'); // Available, In Use, Disabled
+            $table->string('status')->default('Available');
             $table->timestamps();
         });
     }

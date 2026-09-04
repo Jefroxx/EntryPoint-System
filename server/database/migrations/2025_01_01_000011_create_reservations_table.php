@@ -9,11 +9,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reservations', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
-            $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
+            $table->id('reservationID'); // Updated
+            $table->uuid('uuid')->unique();
+            $table->foreignId('studentID')->constrained('students', 'studentID')->cascadeOnDelete(); // Updated
+            $table->foreignId('bookID')->constrained('books', 'bookID')->cascadeOnDelete(); // Updated
             $table->enum('status', ['Waiting', 'Accepted', 'Rejected'])->default('Waiting');
-            $table->timestamp('reserved_at')->useCurrent();
+            $table->timestamp('reservedAt')->useCurrent();
             $table->timestamps();
         });
     }

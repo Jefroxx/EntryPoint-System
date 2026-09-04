@@ -9,12 +9,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('point_redemptions', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
-            $table->foreignId('item_id')->constrained('market_items')->restrictOnDelete();
-            $table->unsignedInteger('points_spent');
-            $table->string('fulfillment_status')->default('Pending'); // Pending, Fulfilled, Cancelled
-            $table->timestamp('redeemed_at')->useCurrent();
+            $table->id('redemptionID'); // Updated
+            $table->uuid('uuid')->unique();
+            $table->foreignId('studentID')->constrained('students', 'studentID')->cascadeOnDelete(); // Updated
+            $table->foreignId('itemID')->constrained('market_items', 'itemID')->restrictOnDelete(); // Updated
+            $table->unsignedInteger('pointsSpent');
+            $table->string('fulfillmentStatus')->default('Pending');
+            $table->timestamp('redeemedAt')->useCurrent();
             $table->timestamps();
         });
     }

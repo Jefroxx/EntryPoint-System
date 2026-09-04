@@ -9,10 +9,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('book_author', function (Blueprint $table) {
-            $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
-            $table->foreignId('author_id')->constrained('authors')->cascadeOnDelete();
-            $table->string('role')->nullable(); // e.g. Primary Author, Co-Author, Editor
-            $table->primary(['book_id', 'author_id']);
+            $table->uuid('uuid')->unique();
+            $table->foreignId('bookID')->constrained('books', 'bookID')->cascadeOnDelete(); // Updated
+            $table->foreignId('authorID')->constrained('authors', 'authorID')->cascadeOnDelete(); // Updated
+            $table->string('role')->nullable();
+            $table->primary(['bookID', 'authorID']);
         });
     }
 
